@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Columbi - Travel Design</title>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+  <link href="css/columbi.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/datepicker.css">
+
+
+  <script>
+    $(document).ready(function () {
+
+      $("ul#menu-principal li").hover(function () {
+
+        var self = $(this);
+
+        var menu = "div.menu-" + self.data('menu');
+        $(menu).css('display', 'block');
+
+      }, function () {
+
+        var self = $(this);
+
+        var menu = "div.menu-" + self.data('menu');
+        $(menu).css('display', 'none');
+
+      });
+
+
+      $("div.menu-experiencia").hover(function () {
+
+        var self = $(this);
+        self.css('display', 'block');
+
+      }, function () {
+
+        var self = $(this);
+        self.css('display', 'none');
+
+      });
+
+
+      $("div.menu-destinos").hover(function () {
+
+        var self = $(this);
+        self.css('display', 'block');
+
+      }, function () {
+
+        var self = $(this);
+        self.css('display', 'none');
+
+      });
+
+      $("#text-destino").on('focus', function () {
+
+        $(this).popover();
+
+        var popover = $(this).data('bs.popover');
+
+
+        popover.config.content = $('.popover-content-destinos').html();
+        popover.config.html = true;
+        popover.config.placement = "bottom";
+
+        $(this).popover('show');
+
+      }).on('hidden.bs.popover', function () {
+        $(".popover-content-destinos").append($(".popover-content-destinos"));
+      });
+
+
+
+      $("#text-data-viagem").on('focus', function () {
+
+        $(this).popover();
+
+        var popover = $(this).data('bs.popover');
+
+
+        popover.config.content = $('.popover-content-data-viagem').html();
+        popover.config.html = true;
+        popover.config.placement = "bottom";
+
+        $(this).popover('show');
+
+      }).on('hidden.bs.popover', function () {
+        $(".popover-content-data-viagem").append($(".popover-content-data-viagem"));
+      });
+
+      $("#text-experiencia").on('focus', function () {
+
+        $(this).popover();
+
+        var popover = $(this).data('bs.popover');
+
+
+        popover.config.content = $('.popover-content-experiencia').html();
+        popover.config.html = true;
+        popover.config.placement = "bottom";
+
+        $(this).popover('show');
+
+      }).on('hidden.bs.popover', function () {
+        $(".popover-content-experiencia").append($(".popover-content-experiencia"));
+      });
+
+      $("#text-pessoas").on('focus', function () {
+
+        $(this).popover();
+
+        var popover = $(this).data('bs.popover');
+
+
+        popover.config.content = $('.popover-content-pessoas').html();
+        popover.config.html = true;
+        popover.config.placement = "bottom";
+
+
+        $(this).popover('show');
+
+      }).on('hidden.bs.popover', function () {
+        $(".popover-content-pessoas").append($(".popover-content-pessoas"));
+      });
+
+
+    });
+
+    function exibirMenu(menu) {
+
+      var $menu = $(menu);
+
+      var indice = $menu.data('menu-index');
+
+      $("ul.grupo-itens-destinos").css('display', 'none');
+      $("ul.grupo-itens-destinos[data-menu-index=" + indice + "]").css('display', 'block');
+
+      $("ul.grupo li").removeClass('hover');
+      $menu.addClass('hover');
+
+    }
+
+  </script>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img alt="Brand" src="images/logo.png" class="img-responsive">
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul id="menu-principal" class="navbar-nav ml-auto">
+  
+            <li class="nav-item " id="lnkExperiencia" data-menu="experiencia">
+              <a class="nav-link" href="#">
+                EXPERIÊNCIAS
+              </a>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link" href="#">|</a>
+            </li>
+            <li class="nav-item expandir" id="lnkDestinos" data-menu="destinos">
+              <a class="nav-link" href="#"> DESTINOS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">|</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
+                QUANDO IR
+              </a>
+              <div class="dropdown-normal" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
+                <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
+                <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>
+                <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
+                <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
+              </div>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link" href="#">|</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"> INSTITUCIONAL</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">|</a>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link" href="#">DICAS</a>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link" href="#">|</a>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link" href="#"> CONTATO </a>
+            </li>
+            <li>
+  
+              <div class="div_atendimento">
+                <div class="wrapper">
+  
+  
+                  <div class="container">
+                    <p>atendimento@colombitravel.com.br</p>
+                    <h2>
+                      <span style="font-size:12px;">+55 11</span> 4810-5342</h2>
+  
+                    <div class="input-group left-inner-addon">
+  
+                      <input type="text" class="form-control" id="inputBusca" aria-describedby="basic-addon1">
+                      <i class="fa fa-search"></i>
+                    </div>
+  
+  
+                  </div>
+  
+                </div>
+              </div>
+            </li>
+  
+          </ul>
+        </div>
+  
+      </div>
+  
+  
+      <div id="menuDestino" class="menu-destinos">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2">
+              <h1>Brasil</h1>
+              <ul>
+                <li>FLORENÇA</li>
+                <li>CHIANTI</li>
+                <li>SAN GIMIGNANO</li>
+                <li>SIENA</li>
+                <li>MONTALCINO</li>
+                <li>ASSIS</li>
+                <li>ROMA</li>
+              </ul>
+            </div>
+            <div class="span5">
+              <div></div>
+            </div>
+            <div class="col-md-2">
+              <h1>America</h1>
+              <ul>
+                <li>FLORENÇA</li>
+                <li>CHIANTI</li>
+                <li>SAN GIMIGNANO</li>
+                <li>SIENA</li>
+                <li>MONTALCINO</li>
+                <li>ASSIS</li>
+                <li>ROMA</li>
+              </ul>
+            </div>
+            <div class="span5">
+              <div></div>
+            </div>
+            <div class="col-md-2">
+              <h1>África</h1>
+              <ul>
+                <li>FLORENÇA</li>
+                <li>CHIANTI</li>
+                <li>SAN GIMIGNANO</li>
+                <li>SIENA</li>
+                <li>MONTALCINO</li>
+                <li>ASSIS</li>
+                <li>ROMA</li>
+              </ul>
+            </div>
+            <div class="span5">
+              <div></div>
+            </div>
+            <div class="col-md-2">
+              <h1>Ásia</h1>
+              <ul>
+                <li>FLORENÇA</li>
+                <li>CHIANTI</li>
+                <li>SAN GIMIGNANO</li>
+                <li>SIENA</li>
+                <li>MONTALCINO</li>
+                <li>ASSIS</li>
+                <li>ROMA</li>
+              </ul>
+            </div>
+            <div class="span5">
+              <div></div>
+            </div>
+            <div class="col-md-2">
+              <h1>Europa</h1>
+              <ul>
+                <li>FLORENÇA</li>
+                <li>CHIANTI</li>
+                <li>SAN GIMIGNANO</li>
+                <li>SIENA</li>
+                <li>MONTALCINO</li>
+                <li>ASSIS</li>
+                <li>ROMA</li>
+              </ul>
+            </div>
+            <div class="span5">
+              <div></div>
+            </div>
+            <div class="col-md-2">
+              <h1>Oceania</h1>
+              <ul>
+                <li>FLORENÇA</li>
+                <li>CHIANTI</li>
+                <li>SAN GIMIGNANO</li>
+                <li>SIENA</li>
+                <li>MONTALCINO</li>
+                <li>ASSIS</li>
+                <li>ROMA</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+  
+  
+      <div id="menuExperiencia" class="menu-experiencia">
+        <div class="container" id="menuIcones">
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+  
+              <div class="row">
+                <div class="col-sm-12">
+                  <img src="images/icon/wine.png" style="min-width: 80px;" class="img img-responsive">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <br>
+                  <h4 class="titulo">Wine Expression</h4>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="row">
+                <div class="col-sm-12">
+                  <br>
+                  <img src="images/icon/mel.png" class="img img-responsive">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <br>
+                  <h4 class="titulo">Lua de Mel</h4>
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="row">
+                <div class="col-sm-12">
+                  <img src="images/icon/familia.png" class="img img-responsive">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h4 class="titulo">Viagem em Familía</h4>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="row">
+                <div class="col-sm-12">
+                  <img src="images/icon/ski.png" class="img img-responsive">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <br>
+                  <h4 class="titulo">Ski e Snowboard</h4>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="row">
+                <div class="col-sm-12">
+                  <img src="images/icon/vida.png" class="img img-responsive">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <br>
+                  <h4 class="titulo">Vida Selvagem</h4>
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+  
+              <div class="row">
+                <div class="col-sm-12">
+                  <img src="images/icon/grupo.png" class="img img-responsive">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <br>
+                  <h4 class="titulo">Viagem em Grupo</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="text-center">
+                <img src="images/icon/hoteis.png" class="img img-responsive">
+                <div class="caption">
+                  <br>
+                  <h4 class="titulo">Hoteis Experiências</h4>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="text-center">
+                <img src="images/icon/sabores.png" class="img img-responsive">
+                <div class="caption">
+                  <h4 class="titulo">Sabores e Aromas</h4>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="text-center">
+                <img src="images/icon/culturais.png" class="img img-responsive">
+                <div class="caption">
+                  <br>
+                  <h4 class="titulo">Essências Culturais</h4>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="text-center">
+                <img src="images/icon/natureza.png" style="min-width: 80px;" class="img img-responsive">
+                <div class="caption">
+                  <br>
+                  <h4 class="titulo">Natureza</h4>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-sm-12 col-md-6 col-lg-2" id="menuBox">
+              <div class="text-center">
+                <img src="images/icon/drive.png" class="img img-responsive">
+                <div class="caption">
+                  <br>
+                  <h4 class="titulo">Drive Sport Car</h4>
+                </div>
+              </div>
+            </div>
+  
+  
+          </div>
+        </div>
+  
+      </div>
+  
+    </nav>
+
+  <div class="contato">
+    <div class="container">
+            <h1>Contato</h1>
+       <br>
+       <p>O roteiro que procurava não está aqui?<br>
+       Quer deixar algum depoimento?<br>
+       Gostaria de dar sua sugestão, fazer um elogio ou uma crítica?<br>
+       <span>Existem diversos motivos para entrar em contato com a gente!</span></p>
+       <br>
+
+       <div class="contanier">
+       
+       <div class="row">
+
+       
+        <div class="col-sm-6 col-md-6 cinza">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <div class="form-group">
+                  <label for="fname"><div class="seta-direita">NOME</div></label>
+                  <input type="text" name="fname" class="form-control" />
+              </div>
+              <div class="form-group">
+                  <label for="lname"><div class="seta-direita">E-MAIL</div></label>
+                  <input type="text" name="lname" class="form-control" />
+              </div>
+              <div class="form-group">
+                  <label for="email"><div class="seta-direita">TELEFONE</div></label>
+                  <input type="text" name="email" class="form-control" />
+              </div>
+
+              <div class="form-group">
+                <label for="email"><div class="seta-direita">CIDADE</div></label>
+                <input type="text" name="email" class="form-control" />
+            </div>
+
+             <div class="form-group">
+               <label for="message"><div class="seta-direita">MENSAGEM</div></label>
+               <textarea class="form-control" name="message" rows="5"></textarea>
+            </div>
+            <div class="text-right">
+               <input type="submit" class="btn btn-success" value="ENVIAR" />
+            </div>
+          </div>
+
+          </div>
+          
+        </div>
+
+        <div class="col-sm-6 col-md-6 verde">
+                <div class="text-center"> 
+                  <img src="images/contato.png" class="img img-responsive">
+                </div>
+                
+                <p class="text-center"><b>CENTRAL DE ATENDIMENTO</b></p>
+                <p class="text-center">Av. 9 de Julho, 5229 · 1º andar<br>
+                  Cep: 01406-200<br>
+                   Jardins · São Paulo / SP</p>
+                <p class="text-center"><b>Tel: +55 (11) 4810 5342<br>
+                    atendimento@colombitravel.com.br</b></p>
+            
+        </div>
+      
+       </div>
+
+      
+             
+        </div>
+    </div>
+
+
+  </div>
+ 
+</div> 
+
+
+<h1 class="my-4 text-center" id="Desejo">... qual o seu desejo?</h1>
+
+  
+<div class="jumbotron">
+    <div class="container">
+      <form class="form-inline" action="/action_page.php">
+
+        <div class="input-group mb-2 mr-sm-2">
+          <input type="text" class="form-control" placeholder="DESTINO" id="text-destino">
+          <div class="row popover-content-destinos" style="display:none;">
+            <div class="container" style="padding:0px; margin:0px">
+              <div class="col-md-12" style="padding:0px; margin:0px">
+                <div class="row" style="padding:0px; margin:0px">
+                  <div class="col-md-4" style="padding:0px; margin-top:10px">
+                    <ul class="grupo" style="width:200px;">
+                      <li onclick="javascript:exibirMenu(this);" data-menu-index="1">
+                        <a href="javascript:;">Brasil</a>
+                      </li>
+                      <li onclick="javascript:exibirMenu(this);" data-menu-index="2">
+                        <a href="javascript:;">América</a>
+                      </li>
+                      <li onclick="javascript:exibirMenu(this);" data-menu-index="3">
+                        <a href="javascript:;">África</a>
+                      </li>
+                      <li onclick="javascript:exibirMenu(this);" data-menu-index="4">
+                        <a href="javascript:;">Asia</a>
+                      </li>
+                      <li onclick="javascript:exibirMenu(this);" data-menu-index="5">
+                        <a href="javascript:;">Europa</a>
+                      </li>
+                      <li onclick="javascript:exibirMenu(this);" data-menu-index="6">
+                        <a href="javascript:;">Oceania</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-8" style="padding:0px; margin-top:10px">
+                    <ul class="grupo-itens-destinos" data-menu-index="1">
+                      <li>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                      </li>
+                    </ul>
+                    <ul class="grupo-itens-destinos" data-menu-index="2">
+                      <li>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                      </li>
+                    </ul>
+                    <ul class="grupo-itens-destinos" data-menu-index="3">
+                      <li>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                      </li>
+
+                    </ul>
+                    <ul class="grupo-itens-destinos" data-menu-index="4">
+                      <li>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                      </li>
+                    </ul>
+                    <ul class="grupo-itens-destinos" data-menu-index="5">
+                      <li>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                      </li>
+
+                    </ul>
+                    <ul class="grupo-itens-destinos" data-menu-index="6">
+                      <li>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                      </li>
+                      <li>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="input-group mb-2 mr-sm-2">
+          <input type="text" class="form-control" placeholder="DATA DA VIAGEM" id="text-data-viagem">
+          <div class="row popover-content-data-viagem" style="display:none;">
+            <div class="container">
+              <div class="col-md-12">
+                <div class="data-viagem-calendar">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group mb-2 mr-sm-2">
+          <input type="text" class="form-control" placeholder="EXPERIÊNCIA" id="text-experiencia">
+          <div class="row popover-content-experiencia" id="experiencia" style="display:none;">
+            <div class="container" style="padding:0px; margin-top:10px;">
+              <div class="col-md-12" style="padding:0px; margin-top:10px">
+                <ul class="grupo-itens" style="padding:0px; margin:0px" data-menu-index="1">
+                  <li>
+                    <a href="#">VIDA SELVAGEM</a>
+                  </li>
+                  <li>
+                    <a href="#">NATUREZA</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group mb-2 mr-sm-2">
+          <input type="text" class="form-control" placeholder="PESSOAS" id="text-pessoas">
+          <div class="row popover-content-pessoas" style="display:none;">
+            <div class="container">
+              <div class="col-md-12">
+
+                <div class="form-group row mt-3">
+                  <div class="col-md-6">
+                    <input class="form-control" id="pessoas" type="text" placeholder="ADULTO">
+                  </div>
+
+                  <div class="col-md-6">
+                    <input class="form-control" id="pessoas" type="text" placeholder="CRIANÇA">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary mb-2" id="buscar">Buscar</button>
+        <div id="xico"></div>
+
+      </form>
+    </div>
+  </div>
+
+    <footer class="py-5">
+      <div class="container">
+        <p class="m-3 text-center text-white">
+          <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i> &nbsp; &nbsp;
+          <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
+        </p>
+        <p class="m-3 text-center text-white">Av. 9 de Julho, 5229 · 1o andar · Jardins · São Paulo/SP · Brasil · + 55 11 4810.5342 · atendimento@colombitravel.com.br</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+    <script>
+      $(document).ready(function () {
+        var itemsMainDiv = ('.MultiCarousel');
+        var itemsDiv = ('.MultiCarousel-inner');
+        var itemWidth = "";
+
+        $('.leftLst, .rightLst').click(function () {
+          var condition = $(this).hasClass("leftLst");
+          if (condition)
+            click(0, this);
+          else
+            click(1, this)
+        });
+
+        ResCarouselSize();
+
+
+
+
+        $(window).resize(function () {
+          ResCarouselSize();
+        });
+
+        //this function define the size of the items
+        function ResCarouselSize() {
+          var incno = 0;
+          var dataItems = ("data-items");
+          var itemClass = ('.item');
+          var id = 0;
+          var btnParentSb = '';
+          var itemsSplit = '';
+          var sampwidth = $(itemsMainDiv).width();
+          var bodyWidth = $('body').width();
+          $(itemsDiv).each(function () {
+            id = id + 1;
+            var itemNumbers = $(this).find(itemClass).length;
+            btnParentSb = $(this).parent().attr(dataItems);
+            itemsSplit = btnParentSb.split(',');
+            $(this).parent().attr("id", "MultiCarousel" + id);
+
+
+            if (bodyWidth >= 1200) {
+              incno = itemsSplit[1];
+              itemWidth = sampwidth / incno;
+            }
+            else if (bodyWidth >= 992) {
+              incno = itemsSplit[1];
+              itemWidth = sampwidth / incno;
+            }
+            else if (bodyWidth >= 768) {
+              incno = itemsSplit[1];
+              itemWidth = sampwidth / incno;
+            }
+            else {
+              incno = itemsSplit[0];
+              itemWidth = sampwidth / incno;
+            }
+            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+            $(this).find(itemClass).each(function () {
+              $(this).outerWidth(itemWidth);
+            });
+
+            $(".leftLst").addClass("over");
+            $(".rightLst").removeClass("over");
+
+          });
+        }
+
+
+        //this function used to move the items
+        function ResCarousel(e, el, s) {
+          var leftBtn = ('.leftLst');
+          var rightBtn = ('.rightLst');
+          var translateXval = '';
+          var divStyle = $(el + ' ' + itemsDiv).css('transform');
+          var values = divStyle.match(/-?[\d\.]+/g);
+          var xds = Math.abs(values[4]);
+          if (e == 0) {
+            translateXval = parseInt(xds) - parseInt(itemWidth * s);
+            $(el + ' ' + rightBtn).removeClass("over");
+
+            if (translateXval <= itemWidth / 2) {
+              translateXval = 0;
+              $(el + ' ' + leftBtn).addClass("over");
+            }
+          }
+          else if (e == 1) {
+            var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+            translateXval = parseInt(xds) + parseInt(itemWidth * s);
+            $(el + ' ' + leftBtn).removeClass("over");
+
+            if (translateXval >= itemsCondition - itemWidth / 2) {
+              translateXval = itemsCondition;
+              $(el + ' ' + rightBtn).addClass("over");
+            }
+          }
+          $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+        }
+
+        //It is used to get some elements from btn
+        function click(ell, ee) {
+          var Parent = "#" + $(ee).parent().attr("id");
+          var slide = $(Parent).attr("data-slide");
+          ResCarousel(ell, Parent, slide);
+        }
+
+      });
+
+    </script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
