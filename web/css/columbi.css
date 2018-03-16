@@ -1992,6 +1992,12 @@ button#reserva{
   }
 
   
+
+
+  /*grecio ajustar*/
+  input[type='text'] {
+    color: #333 !important;
+  }
   
 
 
