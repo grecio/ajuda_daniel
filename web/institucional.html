@@ -10,162 +10,107 @@
 
   <title>Columbi - Travel Design</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
-  <!-- Custom styles for this template -->
-  <link href="css/columbi.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+
+  <script src="js/bootstrap-datepicker.pt-BR.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
-
   <link href="css/columbi.css" rel="stylesheet">
+  <link href="css/datepicker.css" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/datepicker.css">
+ <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css">-->
+
 
 
   <script>
     $(document).ready(function () {
-
       $("ul#menu-principal li").hover(function () {
-
         var self = $(this);
-
         var menu = "div.menu-" + self.data('menu');
         $(menu).css('display', 'block');
-
       }, function () {
-
         var self = $(this);
-
         var menu = "div.menu-" + self.data('menu');
         $(menu).css('display', 'none');
-
       });
-
-
       $("div.menu-experiencia").hover(function () {
-
         var self = $(this);
         self.css('display', 'block');
-
       }, function () {
-
         var self = $(this);
         self.css('display', 'none');
-
       });
-
-
       $("div.menu-destinos").hover(function () {
-
         var self = $(this);
         self.css('display', 'block');
-
       }, function () {
-
         var self = $(this);
         self.css('display', 'none');
-
       });
-
       $("#text-destino").on('focus', function () {
-
         $(this).popover();
-
         var popover = $(this).data('bs.popover');
-
-
         popover.config.content = $('.popover-content-destinos').html();
         popover.config.html = true;
         popover.config.placement = "bottom";
-
         $(this).popover('show');
-
-      }).on('hidden.bs.popover', function () {
-        $(".popover-content-destinos").append($(".popover-content-destinos"));
+        exibirMenu($(".grupo li[data-menu-index=1]"));
+      }).on('focusout', function () {
+        $(this).popover('hide');
       });
-
-
-
-      $("#text-data-viagem").on('focus', function () {
-
-        $(this).popover();
-
-        var popover = $(this).data('bs.popover');
-
-
-        popover.config.content = $('.popover-content-data-viagem').html();
-        popover.config.html = true;
-        popover.config.placement = "bottom";
-
-        $(this).popover('show');
-
-      }).on('hidden.bs.popover', function () {
-        $(".popover-content-data-viagem").append($(".popover-content-data-viagem"));
-      });
-
       $("#text-experiencia").on('focus', function () {
-
         $(this).popover();
-
         var popover = $(this).data('bs.popover');
-
-
         popover.config.content = $('.popover-content-experiencia').html();
         popover.config.html = true;
         popover.config.placement = "bottom";
-
         $(this).popover('show');
-
-      }).on('hidden.bs.popover', function () {
-        $(".popover-content-experiencia").append($(".popover-content-experiencia"));
+      }).on('focusout', function () {
+        $(this).popover('hide');
       });
-
+     
       $("#text-pessoas").on('focus', function () {
-
         $(this).popover();
-
         var popover = $(this).data('bs.popover');
-
-
         popover.config.content = $('.popover-content-pessoas').html();
         popover.config.html = true;
         popover.config.placement = "bottom";
-
-
         $(this).popover('show');
-
-      }).on('hidden.bs.popover', function () {
-        $(".popover-content-pessoas").append($(".popover-content-pessoas"));
       });
-
-
+      var $j = jQuery.noConflict();
+      $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        orientation: 'bottom auto',
+        language: 'pt-BR',
+        weekStart: 0,
+        startDate: '0d',
+        todayHighlight: true
+      });
+      $('.datepicker').on('changeDate', function () {
+        $(this).datepicker('hide');
+      });
     });
-
     function exibirMenu(menu) {
-
       var $menu = $(menu);
-
       var indice = $menu.data('menu-index');
-
       $("ul.grupo-itens-destinos").css('display', 'none');
       $("ul.grupo-itens-destinos[data-menu-index=" + indice + "]").css('display', 'block');
-
       $("ul.grupo li").removeClass('hover');
       $menu.addClass('hover');
-
     }
-
+    function confirmSelecao(target, source) {
+      $(target).val('');
+      $(target).val($(source).text());
+    }
   </script>
 
 </head>
@@ -187,22 +132,23 @@
         <ul id="menu-principal" class="navbar-nav ml-auto">
 
           <li class="nav-item " id="lnkExperiencia" data-menu="experiencia">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="javascript:;">
               EXPERIÊNCIAS
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">|</a>
+            <a class="nav-link" href="javascript:;">|</a>
           </li>
           <li class="nav-item expandir" id="lnkDestinos" data-menu="destinos">
-            <a class="nav-link" href="#"> DESTINOS</a>
+            <a class="nav-link" href="javascript:;"> DESTINOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">|</a>
+            <a class="nav-link" href="javascript:;">|</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
+            <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="false"
+              aria-expanded="true">
               QUANDO IR
             </a>
             <div class="dropdown-normal" aria-labelledby="navbarDropdownPortfolio">
@@ -215,25 +161,25 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">|</a>
+            <a class="nav-link" href="javascript:;">|</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"> INSTITUCIONAL</a>
+            <a class="nav-link" href="javascript:;"> INSTITUCIONAL</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">|</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#">DICAS</a>
+            <a class="nav-link" href="javascript:;">|</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">|</a>
+            <a class="nav-link" href="javascript:;">DICAS</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#"> CONTATO </a>
+            <a class="nav-link" href="javascript:;">|</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:;"> CONTATO </a>
           </li>
           <li>
 
@@ -504,11 +450,8 @@
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
-
     </div>
 
   </nav>
@@ -729,36 +672,45 @@
               <b>Porque escolher a Colombi Travel para operar a sua viagem?</b>
             </h2>
 
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <div class="tab-content">
-                  <p>Somos MOTIVADOS pelo desafio de conquistar resultados extraordinários</p>
-                  <hr>
-                  <p>Temos o COMPROMISSO de surpreender de forma positiva todas as pessoas
-                    <br> com quem nos relacionamos profissionalmente </p>
-                  <hr>
-                  <p>TRABALHAMOS EM EQUIPE, juntos, sem fronteiras departamentais, em prol
-                    <br> dos objetivos coletivos de forma amigável, respeitosa e responsável </p>
-                  <hr>
-                  <p>Entendemos que a QUALIDADE reconhecida por nossos clientes é a base
-                    <br> do crescimento sustentável e do nosso sucesso</p>
-                  <hr>
-                  <p>Agimos de forma TRANSPARENTE e valorizamos uma comunicação assertiva
-                    <br> com nossos clientes, parceiros e colegas de trabalho </p>
-                  <hr>
-                  <p>Somos CRIATIVOS, acreditamos que sempre é possível inovar, transformar e melhorar</p>
+            <div class="caixa col-md-12 mt-2 mb-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 corpo ">
 
+                        <p>Somos MOTIVADOS pelo desafio de conquistar resultados extraordinários</p>
+                        <hr>
+                        <p>Temos o COMPROMISSO de surpreender de forma positiva todas as pessoas
+                          <br> com quem nos relacionamos profissionalmente </p>
+                        <hr>
+                        <p>TRABALHAMOS EM EQUIPE, juntos, sem fronteiras departamentais, em prol
+                          <br> dos objetivos coletivos de forma amigável, respeitosa e responsável </p>
+                        <hr>
+                        <p>Entendemos que a QUALIDADE reconhecida por nossos clientes é a base
+                          <br> do crescimento sustentável e do nosso sucesso</p>
+                        <hr>
+                        <p>Agimos de forma TRANSPARENTE e valorizamos uma comunicação assertiva
+                          <br> com nossos clientes, parceiros e colegas de trabalho </p>
+                        <hr>
+                        <p>Somos CRIATIVOS, acreditamos que sempre é possível inovar, transformar e melhorar</p>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
               </div>
             </div>
           </div>
 
+
         </div>
 
-
       </div>
+
+
     </div>
+  </div>
 
 
   </div>
@@ -780,22 +732,22 @@
                 <div class="row" style="padding:0px; margin:0px">
                   <div class="col-md-4" style="padding:0px; margin-top:10px">
                     <ul class="grupo" style="width:200px;">
-                      <li onclick="javascript:exibirMenu(this);" data-menu-index="1">
+                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="1">
                         <a href="javascript:;">Brasil</a>
                       </li>
-                      <li onclick="javascript:exibirMenu(this);" data-menu-index="2">
+                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="2">
                         <a href="javascript:;">América</a>
                       </li>
-                      <li onclick="javascript:exibirMenu(this);" data-menu-index="3">
+                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="3">
                         <a href="javascript:;">África</a>
                       </li>
-                      <li onclick="javascript:exibirMenu(this);" data-menu-index="4">
+                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="4">
                         <a href="javascript:;">Asia</a>
                       </li>
-                      <li onclick="javascript:exibirMenu(this);" data-menu-index="5">
+                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="5">
                         <a href="javascript:;">Europa</a>
                       </li>
-                      <li onclick="javascript:exibirMenu(this);" data-menu-index="6">
+                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="6">
                         <a href="javascript:;">Oceania</a>
                       </li>
                     </ul>
@@ -803,130 +755,130 @@
                   <div class="col-md-8" style="padding:0px; margin-top:10px">
                     <ul class="grupo-itens-destinos" data-menu-index="1">
                       <li>
-                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">BRA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
                       </li>
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="2">
                       <li>
-                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AME FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
                       </li>
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="3">
                       <li>
-                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
                       </li>
 
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="4">
                       <li>
-                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
                       </li>
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="5">
                       <li>
-                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">EURO FLORENÇA</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
                       </li>
 
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="6">
                       <li>
-                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="#" class="ml-2">OCEAN ASSIS</a>
+                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
                       </li>
 
                     </ul>
@@ -939,15 +891,7 @@
 
 
         <div class="input-group mb-2 mr-sm-2">
-          <input type="text" class="form-control" placeholder="DATA DA VIAGEM" id="text-data-viagem">
-          <div class="row popover-content-data-viagem" style="display:none;">
-            <div class="container">
-              <div class="col-md-12">
-                <div class="data-viagem-calendar">
-                </div>
-              </div>
-            </div>
-          </div>
+          <input type="text" class="form-control datepicker" placeholder="DATA DA VIAGEM" id="text-data-viagem">          
         </div>
 
         <div class="input-group mb-2 mr-sm-2">
@@ -957,10 +901,10 @@
               <div class="col-md-12" style="padding:0px; margin-top:10px">
                 <ul class="grupo-itens" style="padding:0px; margin:0px" data-menu-index="1">
                   <li>
-                    <a href="#">VIDA SELVAGEM</a>
+                    <a href="javascript:;" onclick="confirmSelecao(document.getElementById('text-experiencia'), this)">VIDA SELVAGEM</a>
                   </li>
                   <li>
-                    <a href="#">NATUREZA</a>
+                    <a href="javascript:;" onclick="confirmSelecao(document.getElementById('text-experiencia'), this)">NATUREZA</a>
                   </li>
                 </ul>
               </div>
@@ -990,7 +934,6 @@
         </div>
 
         <button type="button" class="btn btn-primary mb-2" id="buscar">Buscar</button>
-        <div id="xico"></div>
 
       </form>
     </div>

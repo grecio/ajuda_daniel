@@ -10,107 +10,154 @@
 
   <title>Columbi - Travel Design</title>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
 
-  <script src="js/bootstrap-datepicker.pt-BR.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
   <link href="css/columbi.css" rel="stylesheet">
-  <link href="css/datepicker.css" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.standalone.css">-->
-
+  <link rel="stylesheet" href="css/datepicker.css">
 
 
   <script>
     $(document).ready(function () {
+
       $("ul#menu-principal li").hover(function () {
+
         var self = $(this);
+
         var menu = "div.menu-" + self.data('menu');
         $(menu).css('display', 'block');
+
       }, function () {
+
         var self = $(this);
+
         var menu = "div.menu-" + self.data('menu');
         $(menu).css('display', 'none');
+
       });
+
+
       $("div.menu-experiencia").hover(function () {
+
         var self = $(this);
         self.css('display', 'block');
+
       }, function () {
+
         var self = $(this);
         self.css('display', 'none');
+
       });
+
+
       $("div.menu-destinos").hover(function () {
+
         var self = $(this);
         self.css('display', 'block');
+
       }, function () {
+
         var self = $(this);
         self.css('display', 'none');
+
       });
+
       $("#text-destino").on('focus', function () {
+
         $(this).popover();
+
         var popover = $(this).data('bs.popover');
+
+
         popover.config.content = $('.popover-content-destinos').html();
         popover.config.html = true;
         popover.config.placement = "bottom";
+
         $(this).popover('show');
-        exibirMenu($(".grupo li[data-menu-index=1]"));
-      }).on('focusout', function () {
-        $(this).popover('hide');
+
+      }).on('hidden.bs.popover', function () {
+        $(".popover-content-destinos").append($(".popover-content-destinos"));
       });
-      $("#text-experiencia").on('focus', function () {
+
+
+
+      $("#text-data-viagem").on('focus', function () {
+
         $(this).popover();
+
         var popover = $(this).data('bs.popover');
+
+
+        popover.config.content = $('.popover-content-data-viagem').html();
+        popover.config.html = true;
+        popover.config.placement = "bottom";
+
+        $(this).popover('show');
+
+      }).on('hidden.bs.popover', function () {
+        $(".popover-content-data-viagem").append($(".popover-content-data-viagem"));
+      });
+
+      $("#text-experiencia").on('focus', function () {
+
+        $(this).popover();
+
+        var popover = $(this).data('bs.popover');
+
+
         popover.config.content = $('.popover-content-experiencia').html();
         popover.config.html = true;
         popover.config.placement = "bottom";
+
         $(this).popover('show');
-      }).on('focusout', function () {
-        $(this).popover('hide');
+
+      }).on('hidden.bs.popover', function () {
+        $(".popover-content-experiencia").append($(".popover-content-experiencia"));
       });
-     
+
       $("#text-pessoas").on('focus', function () {
+
         $(this).popover();
+
         var popover = $(this).data('bs.popover');
+
+
         popover.config.content = $('.popover-content-pessoas').html();
         popover.config.html = true;
         popover.config.placement = "bottom";
+
+
         $(this).popover('show');
+
+      }).on('hidden.bs.popover', function () {
+        $(".popover-content-pessoas").append($(".popover-content-pessoas"));
       });
-      var $j = jQuery.noConflict();
-      $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
-        orientation: 'bottom auto',
-        language: 'pt-BR',
-        weekStart: 0,
-        startDate: '0d',
-        todayHighlight: true
-      });
-      $('.datepicker').on('changeDate', function () {
-        $(this).datepicker('hide');
-      });
+
+
     });
+
     function exibirMenu(menu) {
+
       var $menu = $(menu);
+
       var indice = $menu.data('menu-index');
+
       $("ul.grupo-itens-destinos").css('display', 'none');
       $("ul.grupo-itens-destinos[data-menu-index=" + indice + "]").css('display', 'block');
+
       $("ul.grupo li").removeClass('hover');
       $menu.addClass('hover');
+
     }
-    function confirmSelecao(target, source) {
-      $(target).val('');
-      $(target).val($(source).text());
-    }
+
   </script>
 
 </head>
@@ -132,23 +179,22 @@
         <ul id="menu-principal" class="navbar-nav ml-auto">
 
           <li class="nav-item " id="lnkExperiencia" data-menu="experiencia">
-            <a class="nav-link" href="javascript:;">
+            <a class="nav-link" href="#">
               EXPERIÊNCIAS
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;">|</a>
+            <a class="nav-link" href="#">|</a>
           </li>
           <li class="nav-item expandir" id="lnkDestinos" data-menu="destinos">
-            <a class="nav-link" href="javascript:;"> DESTINOS</a>
+            <a class="nav-link" href="#"> DESTINOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;">|</a>
+            <a class="nav-link" href="#">|</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="false"
-              aria-expanded="true">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
               QUANDO IR
             </a>
             <div class="dropdown-normal" aria-labelledby="navbarDropdownPortfolio">
@@ -161,25 +207,25 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;">|</a>
+            <a class="nav-link" href="#">|</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;"> INSTITUCIONAL</a>
+            <a class="nav-link" href="#"> INSTITUCIONAL</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;">|</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="javascript:;">DICAS</a>
+            <a class="nav-link" href="#">|</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;">|</a>
+            <a class="nav-link" href="#">DICAS</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;"> CONTATO </a>
+            <a class="nav-link" href="#">|</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#"> CONTATO </a>
           </li>
           <li>
 
@@ -450,9 +496,15 @@
               </div>
             </div>
           </div>
+
+
         </div>
       </div>
+
+
+
     </div>
+
 
   </nav>
 
@@ -555,22 +607,22 @@
                 <div class="row" style="padding:0px; margin:0px">
                   <div class="col-md-4" style="padding:0px; margin-top:10px">
                     <ul class="grupo" style="width:200px;">
-                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="1">
+                      <li onClick="javascript:exibirMenu(this);" data-menu-index="1">
                         <a href="javascript:;">Brasil</a>
                       </li>
-                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="2">
+                      <li onClick="javascript:exibirMenu(this);" data-menu-index="2">
                         <a href="javascript:;">América</a>
                       </li>
-                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="3">
+                      <li onClick="javascript:exibirMenu(this);" data-menu-index="3">
                         <a href="javascript:;">África</a>
                       </li>
-                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="4">
+                      <li onClick="javascript:exibirMenu(this);" data-menu-index="4">
                         <a href="javascript:;">Asia</a>
                       </li>
-                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="5">
+                      <li onClick="javascript:exibirMenu(this);" data-menu-index="5">
                         <a href="javascript:;">Europa</a>
                       </li>
-                      <li onmouseover="javascript:exibirMenu(this);" data-menu-index="6">
+                      <li onClick="javascript:exibirMenu(this);" data-menu-index="6">
                         <a href="javascript:;">Oceania</a>
                       </li>
                     </ul>
@@ -578,130 +630,130 @@
                   <div class="col-md-8" style="padding:0px; margin-top:10px">
                     <ul class="grupo-itens-destinos" data-menu-index="1">
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">BRA FLORENÇA</a>
+                        <a href="#" class="ml-2">BRA FLORENÇA</a>
                       </li>
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="2">
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AME FLORENÇA</a>
+                        <a href="#" class="ml-2">AME FLORENÇA</a>
                       </li>
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="3">
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">AFRI FLORENÇA</a>
+                        <a href="#" class="ml-2">AFRI FLORENÇA</a>
                       </li>
 
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="4">
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">ASIA FLORENÇA</a>
+                        <a href="#" class="ml-2">ASIA FLORENÇA</a>
                       </li>
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="5">
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">EURO FLORENÇA</a>
+                        <a href="#" class="ml-2">EURO FLORENÇA</a>
                       </li>
 
                     </ul>
                     <ul class="grupo-itens-destinos" data-menu-index="6">
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
                       </li>
                       <li>
-                        <a href="javascript:;" class="ml-2" onclick="confirmSelecao(document.getElementById('text-destino'), this)">OCEAN ASSIS</a>
+                        <a href="#" class="ml-2">OCEAN ASSIS</a>
                       </li>
 
                     </ul>
@@ -714,7 +766,15 @@
 
 
         <div class="input-group mb-2 mr-sm-2">
-          <input type="text" class="form-control datepicker" placeholder="DATA DA VIAGEM" id="text-data-viagem">          
+          <input type="text" class="form-control" placeholder="DATA DA VIAGEM" id="text-data-viagem">
+          <div class="row popover-content-data-viagem" style="display:none;">
+            <div class="container">
+              <div class="col-md-12">
+                <div class="data-viagem-calendar">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="input-group mb-2 mr-sm-2">
@@ -724,10 +784,10 @@
               <div class="col-md-12" style="padding:0px; margin-top:10px">
                 <ul class="grupo-itens" style="padding:0px; margin:0px" data-menu-index="1">
                   <li>
-                    <a href="javascript:;" onclick="confirmSelecao(document.getElementById('text-experiencia'), this)">VIDA SELVAGEM</a>
+                    <a href="#">VIDA SELVAGEM</a>
                   </li>
                   <li>
-                    <a href="javascript:;" onclick="confirmSelecao(document.getElementById('text-experiencia'), this)">NATUREZA</a>
+                    <a href="#">NATUREZA</a>
                   </li>
                 </ul>
               </div>
@@ -747,8 +807,8 @@
                   </div>
 
                   <div class="col-md-6">
-                    <input class="form-control" id="pessoas" type="text" placeholder="CRIANÇA">
-                  </div>
+                      <input class="form-control" id="pessoas" type="text" placeholder="CRIANÇA">
+                    </div>
                 </div>
 
               </div>
@@ -757,6 +817,7 @@
         </div>
 
         <button type="button" class="btn btn-primary mb-2" id="buscar">Buscar</button>
+       
 
       </form>
     </div>
@@ -772,7 +833,7 @@
       <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
-            <img class="card-img-top fade" src="images/roteiro.png" class="img img-responsive" alt="">
+            <img class="card-img-top fade" src="images/roteiro.png" alt="">
             <div id="faixaRoteiros">
               <p>
                 <b>Amazônia</b>
@@ -785,7 +846,7 @@
             </div>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="javascript:;">Sabores e Aromas da Toscana</a>
+                <a href="#">Sabores e Aromas da Toscana</a>
               </h4>
               <p class="subTitulo">12 noites / 14 dias</p>
               <p class="descricao">Evelitis simus vendit alitatiorem volorerae omnim quodios nis dererit, volupti intis eum el earum eicime et
@@ -809,7 +870,7 @@
             </div>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="javascript:;">Sabores e Aromas da Toscana</a>
+                <a href="#">Sabores e Aromas da Toscana</a>
               </h4>
               <p class="subTitulo">12 noites / 14 dias</p>
               <p class="descricao">Evelitis simus vendit alitatiorem volorerae omnim quodios nis dererit, volupti intis eum el earum eicime et
@@ -833,7 +894,7 @@
             </div>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="javascript:;">Sabores e Aromas da Toscana</a>
+                <a href="#">Sabores e Aromas da Toscana</a>
               </h4>
               <p class="subTitulo">12 noites / 14 dias</p>
               <p class="descricao">Evelitis simus vendit alitatiorem volorerae omnim quodios nis dererit, volupti intis eum el earum eicime et
@@ -857,7 +918,7 @@
             </div>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="javascript:;">Sabores e Aromas da Toscana</a>
+                <a href="#">Sabores e Aromas da Toscana</a>
               </h4>
               <p class="subTitulo">12 noites / 14 dias</p>
               <p class="descricao">Evelitis simus vendit alitatiorem volorerae omnim quodios nis dererit, volupti intis eum el earum eicime et
@@ -881,7 +942,7 @@
             </div>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="javascript:;">Sabores e Aromas da Toscana</a>
+                <a href="#">Sabores e Aromas da Toscana</a>
               </h4>
               <p class="subTitulo">12 noites / 14 dias</p>
               <p class="descricao">Evelitis simus vendit alitatiorem volorerae omnim quodios nis dererit, volupti intis eum el earum eicime et
@@ -904,7 +965,7 @@
             </div>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="javascript:;">Sabores e Aromas da Toscana</a>
+                <a href="#">Sabores e Aromas da Toscana</a>
               </h4>
               <p class="subTitulo">12 noites / 14 dias</p>
               <p class="descricao">Evelitis simus vendit alitatiorem volorerae omnim quodios nis dererit, volupti intis eum el earum eicime et
@@ -1172,6 +1233,7 @@
         var itemsMainDiv = ('.MultiCarousel');
         var itemsDiv = ('.MultiCarousel-inner');
         var itemWidth = "";
+
         $('.leftLst, .rightLst').click(function () {
           var condition = $(this).hasClass("leftLst");
           if (condition)
@@ -1179,10 +1241,16 @@
           else
             click(1, this)
         });
+
         ResCarouselSize();
+
+
+
+
         $(window).resize(function () {
           ResCarouselSize();
         });
+
         //this function define the size of the items
         function ResCarouselSize() {
           var incno = 0;
@@ -1199,6 +1267,8 @@
             btnParentSb = $(this).parent().attr(dataItems);
             itemsSplit = btnParentSb.split(',');
             $(this).parent().attr("id", "MultiCarousel" + id);
+
+
             if (bodyWidth >= 1200) {
               incno = itemsSplit[1];
               itemWidth = sampwidth / incno;
@@ -1219,10 +1289,14 @@
             $(this).find(itemClass).each(function () {
               $(this).outerWidth(itemWidth);
             });
+
             $(".leftLst").addClass("over");
             $(".rightLst").removeClass("over");
+
           });
         }
+
+
         //this function used to move the items
         function ResCarousel(e, el, s) {
           var leftBtn = ('.leftLst');
@@ -1234,6 +1308,7 @@
           if (e == 0) {
             translateXval = parseInt(xds) - parseInt(itemWidth * s);
             $(el + ' ' + rightBtn).removeClass("over");
+
             if (translateXval <= itemWidth / 2) {
               translateXval = 0;
               $(el + ' ' + leftBtn).addClass("over");
@@ -1243,6 +1318,7 @@
             var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
             translateXval = parseInt(xds) + parseInt(itemWidth * s);
             $(el + ' ' + leftBtn).removeClass("over");
+
             if (translateXval >= itemsCondition - itemWidth / 2) {
               translateXval = itemsCondition;
               $(el + ' ' + rightBtn).addClass("over");
@@ -1250,13 +1326,16 @@
           }
           $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
         }
+
         //It is used to get some elements from btn
         function click(ell, ee) {
           var Parent = "#" + $(ee).parent().attr("id");
           var slide = $(Parent).attr("data-slide");
           ResCarousel(ell, Parent, slide);
         }
+
       });
+
     </script>
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
